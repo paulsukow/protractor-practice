@@ -1,0 +1,27 @@
+{
+  "name": "protractor-practice",
+  "version": "1.0.0",
+  "description": "",
+  "main": "config.js",
+  "scripts": {
+    "pretest": "npm run tsc",
+    "test": "protractor ConvertedJSFiles/config.js",
+    "tsc": "tsc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/paulsukow/protractor-practice.git"
+  },
+  "author": "Paul Sukow",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/paulsukow/protractor-practice/issues"
+  },
+  "homepage": "https://github.com/paulsukow/protractor-practice#readme",
+  "dependencies": {
+    "@types/jasmine": "^2.8.8",
+    "@types/node": "^10.3.1",
+    "protractor": "^5.3.2",
+    "typescript": "^2.9.1"
+  }
+}
