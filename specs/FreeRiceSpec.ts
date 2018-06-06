@@ -1,41 +1,28 @@
-import {ElementFinder, browser, by, element, Browser} from 'protractor';
+import {browser, by, element} from 'protractor';
+import {FreeRiceWebsite} from "../components/FreeRiceWebsite";
 
 describe('free rice example', function () {
-   it('should be able to reach the free rice website', function () {
+
+   it('should be able to solve a multiplication problem to donate free rice', function () {
        browser.waitForAngularEnabled(false);
-       browser.get('http://freerice.com/');
+       let freeRiceWebsite = new FreeRiceWebsite();
 
-       browser.getTitle().then(function (title) {
-           expect(title).toContain("Freerice.com")
-       });
-   });
+       freeRiceWebsite.to();
+       freeRiceWebsite.selectMultiplicationTableFromMathSubject();
 
-   it('should be able to change to the multiplication table under the math subject', function () {
-       element(by.linkText('SUBJECTS')).click();
-       element(by.linkText('Multiplication Table')).click();
+       let multiplicand, multiplier, product;
 
-       element(by.className('subject-title')).getText().then( function (tableName) {
-           expect(tableName).toEqual('Multiplication Table')
-       });
-   });
-
-   it('should be able to solve the multiplication problem', function () {
-       let factors;
-       let multiplicand;
-       let multiplier;
-       let product;
-
-       element(by.className('question-link')).getText().then( function (problemText) {
-           factors = problemText.split(' x ');
+       freeRiceWebsite.question.getText().then( function (problemText) {
+           let factors = problemText.split(' x ');
            multiplicand = parseInt(factors[0]);
            multiplier = parseInt(factors[1]);
 
            product = multiplier * multiplicand;
 
-           element(by.linkText(product.toString())).click();
+           freeRiceWebsite.selectMultiplicationTableAnswer(product);
        });
 
-       element(by.css('#game-status td')).getText().then( function (text) {
+       freeRiceWebsite.gameStatus.getText().then( function (text) {
            expect(text).toContain('Correct! ' + multiplicand + ' x ' + multiplier + ' = ' + product)
        });
    });
